@@ -6,6 +6,7 @@ import AddForm from "./AddForm";
 import MobileBlocksData from "./MobileBlocksData";
 import FormTest from "./FormTest";
 import { convertCompilerOptionsFromJson } from "typescript";
+import Login from "./Login";
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class App extends Component {
       addFormHidden: false,
       editCard: false,
       unEditedItem: {},
-      disableOtherEdits: false
+      disableOtherEdits: false,
+      loggedIn: false
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.setCurItemStuff = this.setCurItemStuff.bind(this);
@@ -42,6 +44,7 @@ class App extends Component {
     this.editCardChange = this.editCardChange.bind(this);
     this.input = React.createRef();
     this.setDisableOtherEdits = this.setDisableOtherEdits.bind(this);
+    this.setLogIn = this.setLogIn.bind(this);
   }
 
   componentDidMount() {
@@ -80,7 +83,7 @@ class App extends Component {
   }
   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
-    const response = await fetch("/api");
+    const response = await fetch("https://btg-admin-mode.herokuapp.com/api");
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -132,7 +135,7 @@ class App extends Component {
     newItem.grape = e.grape;
     newItem.description = e.description;
 
-    fetch(`./api/add?=${name}`, {
+    fetch(`https://btg-admin-mode.herokuapp.com/api/add?=${name}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -198,7 +201,7 @@ class App extends Component {
     // let oldWine = initialValue
 
     // console.log(oldWine)
-    fetch(`./api/add?=${name}`, {
+    fetch(`https://btg-admin-mode.herokuapp.com/api/add?=${name}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -350,6 +353,12 @@ class App extends Component {
       disableOtherEdits: !this.state.disableOtherEdits
     }));
   };
+  setLogIn = e => {
+    let name = e.name;
+    let password = e.password;
+
+    this.setState({ loggedIn: true });
+  };
   ///render portion
 
   //
@@ -358,56 +367,51 @@ class App extends Component {
   //
 
   render() {
+    let loggedIn = this.state.loggedIn;
     return (
       <div className="App">
         <h1>Admin Mode</h1>
         {/* <FormTest handleSubmit={this.handleSubmit} /> */}
-        <AddForm
-          handleSubmit={this.handleSubmit}
-          curItem={this.state.curItem}
-          onChange={this.onChange}
-          handleDelete={this.handleDelete}
-          onCurItemClear={this.onCurItemClear}
-          handleNextClick={this.handleNextClick}
-          handlePrevClick={this.handlePrevClick}
-          glasses={this.state.glasses}
-          handleUpdate={this.handleUpdate}
-          setCurItemStuff={this.setCurItemStuff}
-          onChange={this.onChange}
-        />
-
-        {/* 
-          <AddEditForm
-            handleSubmit={this.handleSubmit}
-            curItem={this.state.curItem}
-            onChange={this.onChange}
-            handleDelete={this.handleDelete}
-            onCurItemClear={this.onCurItemClear}
-            handleNextClick={this.handleNextClick}
-            handlePrevClick={this.handlePrevClick}
-            glasses={this.state.glasses}
-          /> */}
-        <MobileBlocksData
-          glasses={this.state.glasses}
-          wines={this.state.filteredWines}
-          onSelect={this.onSelect}
-          onClear={this.onClear}
-          curItem={this.state.curItem}
-          curEditItem={this.state.curEditItem}
-          unEditedItem={this.unEditedItem}
-          mappedGlasses={this.state.mappedGlasses}
-          handleSelect={this.handleSelect}
-          editCardChange={this.editCardChange}
-          editCard={this.state.editCard}
-          onChange={this.onChange}
-          handleSubmit={this.handleSubmit}
-          handleUpdate={this.handleUpdate}
-          handleDelete={this.handleDelete}
-          onCurItemClear={this.onCurItemClear}
-          onBlur={this.onBlur}
-          setDisableOtherEdits={this.setDisableOtherEdits}
-          disableOtherEdits={this.state.disableOtherEdits}
-        />
+        {loggedIn ? (
+          <span>
+            <AddForm
+              handleSubmit={this.handleSubmit}
+              curItem={this.state.curItem}
+              onChange={this.onChange}
+              handleDelete={this.handleDelete}
+              onCurItemClear={this.onCurItemClear}
+              handleNextClick={this.handleNextClick}
+              handlePrevClick={this.handlePrevClick}
+              glasses={this.state.glasses}
+              handleUpdate={this.handleUpdate}
+              setCurItemStuff={this.setCurItemStuff}
+              onChange={this.onChange}
+            />
+            <MobileBlocksData
+              glasses={this.state.glasses}
+              wines={this.state.filteredWines}
+              onSelect={this.onSelect}
+              onClear={this.onClear}
+              curItem={this.state.curItem}
+              curEditItem={this.state.curEditItem}
+              unEditedItem={this.unEditedItem}
+              mappedGlasses={this.state.mappedGlasses}
+              handleSelect={this.handleSelect}
+              editCardChange={this.editCardChange}
+              editCard={this.state.editCard}
+              onChange={this.onChange}
+              handleSubmit={this.handleSubmit}
+              handleUpdate={this.handleUpdate}
+              handleDelete={this.handleDelete}
+              onCurItemClear={this.onCurItemClear}
+              onBlur={this.onBlur}
+              setDisableOtherEdits={this.setDisableOtherEdits}
+              disableOtherEdits={this.state.disableOtherEdits}
+            />{" "}
+          </span>
+        ) : (
+          <Login setLogIn={this.setLogIn} />
+        )}
       </div>
     );
   }
