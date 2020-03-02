@@ -82,7 +82,7 @@ class App extends Component {
   handleDelete = e => {
     let id = e._id;
 
-    fetch(`./api/delete?_id=${id}`)
+    fetch(`https://btg-admin-mode.herokuapp.com/api/delete?_id=${id}`)
       .then(response => {
         return response.json();
       })
