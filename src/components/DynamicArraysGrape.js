@@ -9,14 +9,15 @@ const DynamicArraysGrape = props => {
       <ArrayField field="grape" validate={validateLength} notify={["you must"]}>
         {({ add, fields }) => (
           <>
+            <button onClick={add} type="button" tabIndex="-1">
+              Add Grape
+            </button>
+            <br></br>
             {fields.map(({ field, key, remove }, i) => (
               <label htmlFor={i} key={key}>
                 Grape {i + 1}:
                 <Text field={field} id={`grape${i}`} />
-                <button onClick={add} type="button">
-                  Add Grape
-                </button>{" "}
-                <button type="button" onClick={remove}>
+                <button type="button" onClick={remove} tabIndex="-1">
                   Remove This Grape
                 </button>
                 <br></br>

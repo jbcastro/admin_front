@@ -10,17 +10,17 @@ const DynamicArraysDesc = () => {
       <ArrayField field="description" validate={validateLength}>
         {({ add, fields }) => (
           <>
+            <button onClick={add} type="button" tabIndex="-1">
+              Add Description
+            </button>
+            <br></br>
             {fields.map(({ field, key, remove }, i) => (
               <label htmlFor={i} key={key}>
                 Description {i + 1}:
                 <Text field={field} id={`description${i}`} />
-                <button onClick={add} type="button">
-                  Add Description
-                </button>{" "}
-                <button type="button" onClick={remove}>
+                <button type="button" onClick={remove} tabIndex="-1">
                   Remove This Description
                 </button>
-                <br></br>
               </label>
             ))}
           </>

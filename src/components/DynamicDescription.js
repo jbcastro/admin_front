@@ -6,16 +6,17 @@ const DynamicDescription = ({ onBlur }) => {
     <ArrayField field="description">
       {({ add, fields }) => (
         <>
+          <button onClick={add} type="button">
+            Add description
+          </button>
+
           {fields.map(({ field, key, remove, value }, i) => (
             <label htmlFor={i} key={key}>
               <br></br>
-              description {i + 1}:
+              {i + 1}:
               <Text field={field} id={`description${i}`} onBlur={onBlur} />
               <button type="button" onClick={remove}>
-                Remove description
-              </button>
-              <button onClick={add} type="button">
-                Add description
+                Remove
               </button>
               <br></br>
             </label>

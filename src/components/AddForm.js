@@ -1,32 +1,13 @@
 import React, { useState } from "react";
 
-import {
-  Form,
-  Text,
-  TextArea,
-  RadioGroup,
-  Radio,
-  Checkbox,
-  Select,
-  Option,
-  Scope,
-  useArrayField,
-  useFormState,
-  ArrayField
-} from "informed";
+import { Form, Text, TextArea, Checkbox, Select, Option } from "informed";
 import DynamicArraysGrape from "./DynamicArraysGrape";
 import DynamicArraysDesc from "./DynamicArrraysDesc";
-import { PromiseProvider } from "mongoose";
 
 const AddForm = props => {
   const handleSubmit = props.handleSubmit;
-  const handleUpdate = props.handleUpdate;
-  let laura = false;
   const onCurItemClear = props.onCurItemClear;
-  const setCurItemStuff = props.setCurItemStuff;
-
-  const formState = useFormState();
-  // console.log(formState);
+  const onChange = props.onChange;
 
   return (
     <Form
@@ -34,64 +15,63 @@ const AddForm = props => {
       initialValues={{ grape: [""], description: [""] }}
       onSubmit={handleSubmit}
     >
-      {({ formApi, formState }) => (
+      {({ formApi }) => (
         <div>
-          {/* <button type="button" onClick={handleUpdateAndSubmit}>
-            change
-          </button> */}
-          {/* <ComponentUsingFormState /> */}
-          {/* <code>{JSON.stringify(formState.values)}</code>
-          <label>Touched:</label>
-          <code>{JSON.stringify(formState.touched)}</code> */}
-          {/* <code>{myFunction(formState.touched)}</code> */}
-          {/* <code>{JSON.stringify(formApi)}</code> */}
           <br></br>
-          <label>
-            id
-            <Text value="" field="_id" disabled />
-          </label>
+          <p class="hidden">
+            <label>
+              id
+              <Text value="" field="_id" disabled />
+            </label>
+          </p>
           <label>
             Name:
-            <Text value="" field="name" onBlur={props.onChange} />
+            <Text value="" field="name" onBlur={onChange} />
           </label>{" "}
           <label>
             Vinyard:
-            <Text field="vinyard" onBlur={props.onChange} />
+            <Text field="vinyard" onBlur={onChange} />
           </label>{" "}
           <label>
             Grapes:
-            <Text field="grapes" onBlur={props.onChange} />
+            <Text field="grapes" onBlur={onChange} />
           </label>{" "}
           <label>
             Year:
-            <Text field="year" type="number" onBlur={props.onChange} />
+            <Text field="year" type="number" onBlur={onChange} />
           </label>
-          <DynamicArraysGrape onBlur={props.onChange} />
-          <DynamicArraysDesc onBlur={props.onChange} />
+          <br></br>
+          <br></br>
+          Individual Grapes
+          <DynamicArraysGrape onBlur={onChange} />
+          <br></br>
+          Decriptions
+          <DynamicArraysDesc onBlur={onChange} />
+          <br></br>
           <label>
             Place:
-            <Text field="place" onBlur={props.onChange} />
+            <Text field="place" onBlur={onChange} />
           </label>{" "}
           <label>
             Area:
-            <Text field="area" onBlur={props.onChange} />
+            <Text field="area" onBlur={onChange} />
           </label>{" "}
           <label>
             Country:
-            <Text field="country" onBlur={props.onChange} />
+            <Text field="country" onBlur={onChange} />
           </label>{" "}
           <label>
             Appellation:
-            <Text field="appellation" onBlur={props.onChange} />
+            <Text field="appellation" onBlur={onChange} />
           </label>{" "}
           <label>
             Price:
-            <Text field="price" type="number" onBlur={props.onChange} />
+            <Text field="price" type="number" onBlur={onChange} />
           </label>
           <br></br>
           <label>
             Mise:
-            <Select field="mise" initialValue="ap" onBlur={props.onChange}>
+            <Select field="mise" initialValue="ap" onBlur={onChange}>
               <Option value="ap">AP</Option>
 
               <Option value="burg"> BURG</Option>
@@ -131,7 +111,7 @@ const AddForm = props => {
           <br></br>
           <label>
             Fun Fact:
-            <TextArea field="funfact" onBlur={props.onChange} />
+            <TextArea field="funfact" onBlur={onChange} />
           </label>
           <button type="submit">submit</button>
           <button

@@ -1,56 +1,25 @@
 import React, { useState } from "react";
 import useStyles from "./UseStyles";
-import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import EditForm from "./EditForm";
-
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import CardMedia from "@material-ui/core/CardMedia";
-import { string } from "prop-types";
-import { PromiseProvider } from "mongoose";
 import DynamicGrapes from "./DynamicGrapes";
 import DynamicDescription from "./DynamicDescription";
-import {
-  Form,
-  Text,
-  TextArea,
-  RadioGroup,
-  Radio,
-  Checkbox,
-  Select,
-  Option,
-  Scope,
-  useFormState,
-  useArrayField,
-  ArrayField,
-  useFormApi
-} from "informed";
-import { Button, createMuiTheme, Hidden } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-
-// import MobileBar from "./MobileBar";
+import { Form, Text, TextArea, Checkbox, Select, Option } from "informed";
 
 const MobileBlocks = ({
   data,
   onSelect,
   hideRemoved,
   handleSelect,
-  editCardChange,
-  editCard,
-  curItem,
-  curEditItem,
-  unEditedItem,
-  onChange,
-  handleSubmit,
+
   handleUpdate,
   handleDelete,
   onCurItemClear,
@@ -59,34 +28,6 @@ const MobileBlocks = ({
   disableOtherEdits,
   setDisableOtherEdits
 }) => {
-  const grapes = "grapes";
-  const year = "year";
-  const place = "place";
-  const area = "area";
-  const country = "country";
-  const appellation = "appellation";
-  const grape = "grape";
-  // const description = "description";
-  const vinyard = "vinyard";
-  const color = "color";
-  const mise = "mise";
-  const coravin = "coravin";
-  const grapezz = "grape";
-  const [disabled, setDisabled] = useState(true);
-
-  const upperCaseFirstLetter = str =>
-    str.replace(/\b[a-z]/g, char => char.toUpperCase());
-
-  const upperCaseFirstLetterForColor = color => {
-    if (color == !null) {
-      var str = color.charAt(0);
-
-      return str.toUpperCase();
-    }
-
-    //check to see if needed in admin mode
-  };
-
   const checkStatus = status => {
     if (status === "added") {
       return classes.cardAdded;
@@ -100,80 +41,6 @@ const MobileBlocks = ({
       return classes.card;
     }
   };
-  const colorz = color => {
-    if (color === "red") {
-      return classes.avatarRed;
-    } else if (color === "white") {
-      return classes.avatarWhite;
-    } else if (color === "dessert") {
-      return classes.avatarDessert;
-    } else if (color === "corovan") {
-      return classes.avatarCorovan;
-    } else {
-      return classes.avatarSparkling;
-    }
-  };
-
-  function changeCardStuff() {
-    if (!editCard) {
-      return classes.ButtonBase;
-    } else {
-      return classes.buttonHidden;
-    }
-  }
-
-  function checkIfNull(data) {
-    if (data != null) {
-      return data;
-    } else {
-      return;
-    }
-  }
-  //span
-  let curEditItemId = curEditItem._id;
-
-  function checkIfcurEditItem(id) {
-    if (curEditItemId === id) {
-      return true;
-    }
-  }
-  // const grapeArray1 = result => {
-  //   result.map(res => {
-  //     return res[0];
-  //   });
-  // };
-
-  // function grapeArray(data, num) {
-  //   data.map(num => {
-  //     return data[num];
-  //   });
-  // }
-  //to get the subheader as a button
-  let vinyard2;
-  function vinny(vinyard1) {
-    if (vinyard1 === string) {
-      vinyard2 = vinyard1.toUpperCase();
-    }
-    return (
-      <ButtonBase
-        className={classes.ButtonBase}
-        id={vinyard}
-        value={vinyard2}
-        onClick={event => onSelect(event)}
-      >
-        {vinyard1}
-      </ButtonBase>
-    );
-  }
-  // function editStuff() {
-  //   if (!editCard) {
-  //     {
-  //       ButtonBase;
-  //     }
-  //   } else {
-  //     console.log("hey");
-  //   }
-  // }
 
   function coravinCheck(coravin) {
     if (coravin === true) {
@@ -182,7 +49,6 @@ const MobileBlocks = ({
       return "non-coravin";
     }
   }
-
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [deleteButtonEnable, setDeleteButton] = React.useState(true);
@@ -203,35 +69,25 @@ const MobileBlocks = ({
     handleSelect(data._id);
     setDisableOtherEdits();
   };
-
-  // const touchedLength = obj => {
-  //   if (Object.keys(obj).length > 0) {
-  //     setDisabledSave(!disableSave);
-  //   }
-  // };
   const handleSave = event => {
     handleUpdate(event);
     setDisabledSave(prevState => true);
   };
-
   const closeIt = () => {
     handleEdit();
     onCurItemClear();
     setDisableOtherEdits();
   };
-  const cancelIt = () => {
-    handleEdit();
-    onCurItemClear();
-    setDisableOtherEdits();
-  };
-
   const onBlurValidate = event => {
     onBlur(event);
     setDisabledSave(prevState => false);
-    console.log(event.target);
   };
   const dynamicBlurValidate = () => {
     setDisabledSave(prevState => false);
+  };
+  const handleDelete2 = data => {
+    handleDelete(data);
+    setDisableOtherEdits();
   };
 
   return (
@@ -243,7 +99,7 @@ const MobileBlocks = ({
           ""
         ) : (
           <button type="button" onClick={() => handleSelect2(data)}>
-            Edit it brah
+            Edit it
           </button>
         )}
 
@@ -262,7 +118,7 @@ const MobileBlocks = ({
               type="button"
               id="button2"
               hidden={deleteButtonEnable}
-              onClick={e => handleDelete(data)}
+              onClick={e => handleDelete2(data)}
             >
               Are you Sure You Want to Delete?
             </button>
@@ -276,10 +132,8 @@ const MobileBlocks = ({
                 grape: data.grape,
                 description: data.description
               }}
-              // onChange={formState => touchedLength(formState.touched)}
             >
               <div>
-                {/* <code>{JSON.stringify(formState.touched)}</code> */}
                 <button type="submit" disabled={disableSave}>
                   Save
                 </button>
@@ -293,7 +147,7 @@ const MobileBlocks = ({
                     onClick={e => {
                       if (
                         window.confirm(
-                          "Are you sure you wish to not save this item?"
+                          "Are you sure you want to cancel changes?"
                         )
                       )
                         closeIt();
@@ -302,6 +156,18 @@ const MobileBlocks = ({
                     Cancel
                   </button>
                 )}
+
+                <label>
+                  <p class="hidden">
+                    <font size="1">id:</font>
+                    <Text
+                      className={classes.text}
+                      field="_id"
+                      disabled={true}
+                      initialValue={data._id}
+                    ></Text>
+                  </p>
+                </label>
 
                 <label>
                   <br></br>
@@ -323,18 +189,9 @@ const MobileBlocks = ({
                     onBlur={event => onBlurValidate(event)}
                   ></Text>
                 </label>
+
                 <label>
-                  <font size="1">id:</font>
-                  <Text
-                    className={classes.text}
-                    field="_id"
-                    disabled={true}
-                    initialValue={data._id}
-                  ></Text>
-                </label>
-                <br></br>
-                <label>
-                  <font size="1">Grapes:</font>
+                  <font size="1">All Grapes:</font>
                   <Text
                     className={classes.text}
                     field="grapes"
@@ -343,11 +200,18 @@ const MobileBlocks = ({
                   ></Text>
                 </label>
                 <br></br>
-                {/* start of grapes */}
-                <DynamicGrapes onBlur={dynamicBlurValidate} data={data} />
-                {/* {DynamicDescription} */}
-                <DynamicDescription onBlur={dynamicBlurValidate} data={data} />
-                {/* end of grapes */}
+
+                <p class="border">
+                  Individual Grapes<br></br>
+                  <DynamicGrapes onBlur={dynamicBlurValidate} data={data} />
+                </p>
+                <p class="border">
+                  Descriptions
+                  <DynamicDescription
+                    onBlur={dynamicBlurValidate}
+                    data={data}
+                  />
+                </p>
                 <label>
                   <font size="1">Year:</font>
                   <Text
@@ -411,11 +275,20 @@ const MobileBlocks = ({
                 </label>
                 <br></br>
                 <label>
-                  Status:
+                  <font size="1">Coravin:</font>
+                  <Checkbox
+                    field="coravin"
+                    initialValue={data.coravin}
+                    onChange={event => onBlurValidate(event)}
+                  ></Checkbox>
+                </label>
+                <br></br>
+                <label>
+                  <font size="1">Status:</font>
                   <Select
                     field="status"
                     initialValue={data.status}
-                    onBlur={event => onBlurValidate(event)}
+                    onChange={event => onBlurValidate(event)}
                   >
                     <Option value="">{data.status}</Option>
                     <Option value="none">None</Option>
@@ -426,11 +299,11 @@ const MobileBlocks = ({
                 </label>
                 <br></br>
                 <label>
-                  Mise:
+                  <font size="1">Mise:</font>
                   <Select
                     field="mise"
                     initialValue={data.mise}
-                    onBlur={event => onBlurValidate(event)}
+                    onChange={event => onBlurValidate(event)}
                   >
                     <Option value="">{data.mise}</Option>
                     <Option value="ap">AP</Option>
@@ -472,7 +345,7 @@ const MobileBlocks = ({
           </span>
         ) : (
           <span>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography className="Paragraph">
               A {""}
               {coravinCheck(data.coravin)} {data.year} {data.grapes} by{" "}
               {data.vinyard} from {data.place} {data.area} in {""}
@@ -483,13 +356,13 @@ const MobileBlocks = ({
               {data.grape.map((result, index) => (
                 <li key={index}>
                   {" "}
-                  Grape{index + 1}: {result}
+                  Grape {index + 1}: {result}
                 </li>
               ))}
               {data.description.map((result, index) => (
                 <li key={index}>
                   {" "}
-                  Desc{index + 1}: {result} ||
+                  Desc {index + 1}: {result}
                 </li>
               ))}
             </Typography>

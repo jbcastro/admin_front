@@ -1,20 +1,20 @@
 import React from "react";
-import { Form, Text, ArrayField } from "informed";
+import { Text, ArrayField } from "informed";
 const DynamicGrapes = ({ onBlur }) => {
   return (
     <ArrayField field="grape">
       {({ add, fields }) => (
         <>
-          {fields.map(({ field, key, remove, value }, i) => (
+          <button onClick={add} type="button">
+            Add grape
+          </button>
+          {fields.map(({ field, key, remove }, i) => (
             <label htmlFor={i} key={key}>
               <br></br>
-              grape {i + 1}:
+              {i + 1}:
               <Text field={field} id={`grape${i}`} onBlur={onBlur} />
               <button type="button" onClick={remove}>
-                Remove Grape
-              </button>
-              <button onClick={add} type="button">
-                Add grape
+                Remove
               </button>
               <br></br>
             </label>

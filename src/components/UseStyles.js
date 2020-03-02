@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 const useStyles = makeStyles(theme => ({
@@ -36,7 +35,6 @@ const useStyles = makeStyles(theme => ({
     display: "inline-block",
     minHeight: 436,
     overflow: "hidden"
-    // display: "none"
   },
   ButtonBase: {
     color: "blue"
@@ -44,9 +42,7 @@ const useStyles = makeStyles(theme => ({
   buttonHidden: {
     backgroundColor: "yellow"
   },
-  // text: {
-  //   // display: "none"
-  // },
+
   AvatarButton: {
     fontSize: "1em"
   },
@@ -80,6 +76,9 @@ const useStyles = makeStyles(theme => ({
   },
   avatarSparkling: {
     backgroundColor: "blue"
+  },
+  Paragraph: {
+    fontSize: ".5"
   }
 }));
 export default useStyles;

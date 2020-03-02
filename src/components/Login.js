@@ -4,10 +4,12 @@ const Login = props => {
   const setLogIn = props.setLogIn;
   return (
     <Form onSubmit={setLogIn}>
-      Demo mode. Just submit form to get to home<br></br>
+      Demo mode. Click submit to get to home page. <br></br>You may add, edit,
+      or delete whatever you'd like and feel free to add a wine with you name{" "}
+      <br></br>
       <label>User Name</label>
       <Text field="name"></Text>
-      <label>password </label>
+      <label>Password </label>
       <Text field="password"></Text>
       <button type="submit">submit</button>
     </Form>

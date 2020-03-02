@@ -41,3 +41,13 @@ th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+li {
+  list-style-type: none;
+}
+p.border {
+  border-style: solid;
+}
+
+p.hidden {
+  display: none;
+}
