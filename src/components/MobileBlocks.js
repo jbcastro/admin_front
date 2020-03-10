@@ -147,7 +147,7 @@ const MobileBlocks = ({
                     onClick={e => {
                       if (
                         window.confirm(
-                          "Are you sure you want to cancel changes?"
+                          "Are you sure you do not want to save changes?"
                         )
                       )
                         closeIt();
