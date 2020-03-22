@@ -62,7 +62,6 @@ class App extends Component {
   }
   //Fetches data from backend set up at heroku
   callBackendAPI = async () => {
-    console.log(process.env);
     const response = await fetch(API_KEY);
     const body = await response.json();
 
@@ -167,7 +166,6 @@ class App extends Component {
     newItem.mise = e.mise;
     newItem.funfact = e.funfact;
     newItem.coravin = e.coravin;
-    console.log(e.grape);
 
     fetch(`${API_KEY}/add?=${name}`, {
       method: "POST",
@@ -190,7 +188,7 @@ class App extends Component {
         if (!newItem._id) {
           this.setState(state => {
             newItem._id = json._id;
-            console.log(newItem._id);
+
             const glasses = [...state.glasses, newItem];
 
             return {
