@@ -28,6 +28,9 @@ const useStyles = makeStyles(theme => ({
     minHeight: 436,
     overflow: "hidden"
   },
+  titleStyle: {
+    fontSize: "100px"
+  },
 
   cardHidden: {
     maxWidth: 345,
@@ -77,8 +80,8 @@ const useStyles = makeStyles(theme => ({
   avatarSparkling: {
     backgroundColor: "blue"
   },
-  Paragraph: {
-    fontSize: ".5"
+  paragraph: {
+    textTransform: "capitalize"
   }
 }));
 export default useStyles;

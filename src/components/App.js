@@ -7,6 +7,10 @@ import MobileBlocksData from "./MobileBlocksData";
 import FormTest from "./FormTest";
 import { convertCompilerOptionsFromJson } from "typescript";
 import Login from "./Login";
+import HowTo from "./HowTo";
+import firebase from "../firebase";
+require("dotenv").config();
+var API_KEY = process.env.REACT_APP_API;
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +35,7 @@ class App extends Component {
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onCurItemClear = this.onCurItemClear.bind(this);
+    this.onCurEditItemClear = this.onCurEditItemClear.bind(this);
     this.editCardChange = this.editCardChange.bind(this);
     this.setDisableOtherEdits = this.setDisableOtherEdits.bind(this);
     this.setLogIn = this.setLogIn.bind(this);
@@ -57,7 +62,8 @@ class App extends Component {
   }
   //Fetches data from backend set up at heroku
   callBackendAPI = async () => {
-    const response = await fetch("https://btg-admin-mode.herokuapp.com/api");
+    console.log(process.env);
+    const response = await fetch(API_KEY);
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -82,7 +88,7 @@ class App extends Component {
   handleDelete = e => {
     let id = e._id;
 
-    fetch(`https://btg-admin-mode.herokuapp.com/api/delete?_id=${id}`)
+    fetch(`${API_KEY}/delete?_id=${id}`)
       .then(response => {
         return response.json();
       })
@@ -91,6 +97,7 @@ class App extends Component {
           return item._id !== id;
         });
         this.setState({ glasses: remainder, e: {} });
+        this.setState({ curEditItem: {} });
       });
   };
 
@@ -105,7 +112,7 @@ class App extends Component {
     newItem.grape = e.grape;
     newItem.description = e.description;
 
-    fetch(`https://btg-admin-mode.herokuapp.com/api/add?=${name}`, {
+    fetch(`${API_KEY}/add?=${name}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -160,8 +167,9 @@ class App extends Component {
     newItem.mise = e.mise;
     newItem.funfact = e.funfact;
     newItem.coravin = e.coravin;
+    console.log(e.grape);
 
-    fetch(`https://btg-admin-mode.herokuapp.com/api/add?=${name}`, {
+    fetch(`${API_KEY}/add?=${name}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -224,6 +232,9 @@ class App extends Component {
   };
 
   onCurItemClear = () => {
+    this.setState({ curItem: {} });
+  };
+  onCurEditItemClear = () => {
     this.setState({ curEditItem: {} });
   };
 
@@ -235,11 +246,14 @@ class App extends Component {
       disableOtherEdits: !this.state.disableOtherEdits
     }));
   };
-  setLogIn = e => {
-    let name = e.name;
-    let password = e.password;
-
-    this.setState({ loggedIn: true });
+  setLogIn = (email, password) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(user => {
+        this.setState({ loggedIn: true });
+      })
+      .catch(error => console.log(error));
   };
   ///render portion
 
@@ -252,9 +266,10 @@ class App extends Component {
     let loggedIn = this.state.loggedIn;
     return (
       <div className="App">
-        <h1>Admin Mode</h1>
         {loggedIn ? (
           <span>
+            <HowTo />
+            <p></p>
             <AddForm
               handleSubmit={this.handleSubmit}
               curItem={this.state.curItem}
@@ -267,6 +282,7 @@ class App extends Component {
               handleUpdate={this.handleUpdate}
               setCurItemStuff={this.setCurItemStuff}
             />
+
             <MobileBlocksData
               glasses={this.state.glasses}
               wines={this.state.filteredWines}
@@ -283,7 +299,7 @@ class App extends Component {
               handleSubmit={this.handleSubmit}
               handleUpdate={this.handleUpdate}
               handleDelete={this.handleDelete}
-              onCurItemClear={this.onCurItemClear}
+              onCurEditItemClear={this.onCurEditItemClear}
               onBlur={this.onBlur}
               setDisableOtherEdits={this.setDisableOtherEdits}
               disableOtherEdits={this.state.disableOtherEdits}

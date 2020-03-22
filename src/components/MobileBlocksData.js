@@ -15,7 +15,7 @@ const MobileBlocksData = ({
   handleSubmit,
   handleUpdate,
   handleDelete,
-  onCurItemClear,
+  onCurEditItemClear,
   props,
   onBlur,
   disableOtherEdits,
@@ -40,7 +40,7 @@ const MobileBlocksData = ({
         handleUpdate={handleUpdate}
         handleSubmit={handleSubmit}
         handleDelete={handleDelete}
-        onCurItemClear={onCurItemClear}
+        onCurEditItemClear={onCurEditItemClear}
         onBlur={onBlur}
         disableOtherEdits={disableOtherEdits}
         setDisableOtherEdits={setDisableOtherEdits}

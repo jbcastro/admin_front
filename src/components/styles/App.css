@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-
   clear: both;
 }
 .MobileBar {
@@ -50,4 +49,13 @@ p.border {
 
 p.hidden {
   display: none;
+}
+label.nobreak {
+  white-space: nowrap;
+}
+.Howto {
+  /* float: left; */
+}
+.AddForm {
+  clear: both;
 }

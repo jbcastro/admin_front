@@ -1,18 +1,49 @@
-import React from "react";
-import { Form, Text } from "informed";
-const Login = props => {
-  const setLogIn = props.setLogIn;
-  return (
-    <Form onSubmit={setLogIn}>
-      Demo mode. Click submit to get to home page. <br></br>You may add, edit,
-      or delete whatever you'd like and feel free to add a wine with you name{" "}
-      <br></br>
-      <label>User Name</label>
-      <Text field="name"></Text>
-      <label>Password </label>
-      <Text field="password"></Text>
-      <button type="submit">submit</button>
-    </Form>
-  );
-};
-export default Login;
+import React, { Component } from "react";
+
+export default class Login extends Component {
+  state = {
+    email: "",
+    password: ""
+  };
+  handleLogin = e => {
+    e.preventDefault();
+    this.props.setLogIn(this.state.email, this.state.password);
+    console.log(this.state.email, this.state.password);
+  };
+  render() {
+    return (
+      <form className="container" name="login" onSubmit={this.handleLogin}>
+        <p>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            onChange={e =>
+              this.setState({
+                email: e.target.value
+              })
+            }
+          />
+        </p>
+        <p>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            onChange={e =>
+              this.setState({
+                password: e.target.value
+              })
+            }
+          />
+        </p>
+        <p>
+          <button
+            type="submit"
+            disabled={!this.state.emai && !this.state.password}
+          >
+            Login
+          </button>
+        </p>
+      </form>
+    );
+  }
+}

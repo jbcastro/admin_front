@@ -511,7 +511,7 @@ const MobileBlocks = ({
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Fun Fact: {data.funfact}</Typography>
+          <Typography>Fun Fact: {data.funfact}</Typography>
         </CardContent>
       </Collapse>
     </Card>

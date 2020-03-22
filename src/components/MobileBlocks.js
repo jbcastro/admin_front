@@ -22,7 +22,7 @@ const MobileBlocks = ({
 
   handleUpdate,
   handleDelete,
-  onCurItemClear,
+  onCurEditItemClear,
   props,
   onBlur,
   disableOtherEdits,
@@ -49,6 +49,7 @@ const MobileBlocks = ({
       return "non-coravin";
     }
   }
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [deleteButtonEnable, setDeleteButton] = React.useState(true);
@@ -63,6 +64,7 @@ const MobileBlocks = ({
   };
   const handleEdit = () => {
     setEdit(!editEnable);
+    setExpanded(prevState => true);
   };
   const handleSelect2 = data => {
     handleEdit();
@@ -75,8 +77,9 @@ const MobileBlocks = ({
   };
   const closeIt = () => {
     handleEdit();
-    onCurItemClear();
+    onCurEditItemClear();
     setDisableOtherEdits();
+    setDisabledSave(prevState => true);
   };
   const onBlurValidate = event => {
     onBlur(event);
@@ -88,6 +91,9 @@ const MobileBlocks = ({
   const handleDelete2 = data => {
     handleDelete(data);
     setDisableOtherEdits();
+  };
+  const style = {
+    fontSize: "15px"
   };
 
   return (
@@ -147,7 +153,7 @@ const MobileBlocks = ({
                     onClick={e => {
                       if (
                         window.confirm(
-                          "Are you sure you do not want to save changes?"
+                          "Are you sure? Any edits will not be saved..."
                         )
                       )
                         closeIt();
@@ -191,6 +197,7 @@ const MobileBlocks = ({
                 </label>
 
                 <label>
+                  <br></br>
                   <font size="1">All Grapes:</font>
                   <Text
                     className={classes.text}
@@ -217,7 +224,6 @@ const MobileBlocks = ({
                   <Text
                     className={classes.text}
                     field="year"
-                    type="number"
                     initialValue={data.year}
                     onBlur={event => onBlurValidate(event)}
                   ></Text>
@@ -345,7 +351,7 @@ const MobileBlocks = ({
           </span>
         ) : (
           <span>
-            <Typography className="Paragraph">
+            <Typography style={style}>
               A {""}
               {coravinCheck(data.coravin)} {data.year} {data.grapes} by{" "}
               {data.vinyard} from {data.place} {data.area} in {""}
@@ -387,9 +393,7 @@ const MobileBlocks = ({
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
-                <Typography paragraph className={classes.paragraph}>
-                  Fun Fact: {data.funfact}
-                </Typography>
+                <Typography style={style}>Fun Fact: {data.funfact}</Typography>
               </CardContent>
             </Collapse>
           </span>
