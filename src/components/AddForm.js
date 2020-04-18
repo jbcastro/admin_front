@@ -6,17 +6,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 
-const AddForm = props => {
+const AddForm = (props) => {
   const handleSubmit = props.handleSubmit;
   const onCurItemClear = props.onCurItemClear;
   const onChange = props.onChange;
 
-  const useStyles = makeStyles(theme => ({
+  const useStyles = makeStyles((theme) => ({
     root: {
       "& > *": {
-        margin: theme.spacing(1)
-      }
-    }
+        margin: theme.spacing(1),
+      },
+    },
   }));
   const classes = useStyles();
   return (
@@ -32,7 +32,7 @@ const AddForm = props => {
             color="secondary"
             type="button"
             size="small"
-            onClick={event => {
+            onClick={(event) => {
               formApi.reset();
               onCurItemClear();
             }}
@@ -86,18 +86,18 @@ const AddForm = props => {
           <p></p>
           <label class="nobreak">
             Mise:
-            <Select field="mise" initialValue="ap" onBlur={onChange}>
-              <Option value="ap">AP</Option>
+            <Select field="mise" initialValue="AP" onBlur={onChange}>
+              <Option value="AP">AP</Option>
 
-              <Option value="burg"> BURG</Option>
+              <Option value="BURG"> BURG</Option>
 
-              <Option value="bdx"> BDX</Option>
+              <Option value="BDX"> BDX</Option>
 
-              <Option value="flute">Flute</Option>
+              <Option value="Flute">Flute</Option>
 
-              <Option value="dw">DW</Option>
+              <Option value="DW">DW</Option>
 
-              <Option value="krug">Krug Flute</Option>
+              <Option value="KRUG">Krug Flute</Option>
             </Select>
           </label>
           <label class="nobreak">

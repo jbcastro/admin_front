@@ -26,9 +26,9 @@ const MobileBlocks = ({
   props,
   onBlur,
   disableOtherEdits,
-  setDisableOtherEdits
+  setDisableOtherEdits,
 }) => {
-  const checkStatus = status => {
+  const checkStatus = (status) => {
     if (status === "added") {
       return classes.cardAdded;
     } else if (status === "removed" && !hideRemoved) {
@@ -49,6 +49,27 @@ const MobileBlocks = ({
       return "non-coravin";
     }
   }
+  let aOrAn = (mise) => {
+    let upperMise = mise.toUpperCase();
+    if (upperMise == "AP") {
+      return "an";
+    } else {
+      return "a";
+    }
+  };
+
+  let fullGlassName = (mise) => {
+    let upperMise = mise.toUpperCase();
+    if (upperMise == "BURG") {
+      return "Burgundy";
+    } else if (upperMise == "BDX") {
+      return "Bordeaux";
+    } else if (upperMise == "KRUG") {
+      return "Krug Flute";
+    } else {
+      return mise;
+    }
+  };
 
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -64,36 +85,37 @@ const MobileBlocks = ({
   };
   const handleEdit = () => {
     setEdit(!editEnable);
-    setExpanded(prevState => true);
+    setExpanded((prevState) => true);
   };
-  const handleSelect2 = data => {
+  const handleSelect2 = (data) => {
     handleEdit();
     handleSelect(data._id);
     setDisableOtherEdits();
   };
-  const handleSave = event => {
+  const handleSave = (event) => {
     handleUpdate(event);
-    setDisabledSave(prevState => true);
+    setDisabledSave((prevState) => true);
   };
   const closeIt = () => {
     handleEdit();
     onCurEditItemClear();
     setDisableOtherEdits();
-    setDisabledSave(prevState => true);
+    setDisabledSave((prevState) => true);
+    setExpanded((prevState) => false);
   };
-  const onBlurValidate = event => {
+  const onBlurValidate = (event) => {
     onBlur(event);
-    setDisabledSave(prevState => false);
+    setDisabledSave((prevState) => false);
   };
   const dynamicBlurValidate = () => {
-    setDisabledSave(prevState => false);
+    setDisabledSave((prevState) => false);
   };
-  const handleDelete2 = data => {
+  const handleDelete2 = (data) => {
     handleDelete(data);
     setDisableOtherEdits();
   };
   const style = {
-    fontSize: "15px"
+    fontSize: "15px",
   };
 
   return (
@@ -124,7 +146,7 @@ const MobileBlocks = ({
               type="button"
               id="button2"
               hidden={deleteButtonEnable}
-              onClick={e => handleDelete2(data)}
+              onClick={(e) => handleDelete2(data)}
             >
               Are you Sure You Want to Delete?
             </button>
@@ -136,7 +158,7 @@ const MobileBlocks = ({
               onSubmit={handleSave}
               initialValues={{
                 grape: data.grape,
-                description: data.description
+                description: data.description,
               }}
             >
               <div>
@@ -150,7 +172,7 @@ const MobileBlocks = ({
                 ) : (
                   <button
                     type="button"
-                    onClick={e => {
+                    onClick={(e) => {
                       if (
                         window.confirm(
                           "Are you sure? Any edits will not be saved..."
@@ -182,7 +204,7 @@ const MobileBlocks = ({
                     className={classes.text}
                     field="name"
                     initialValue={data.name}
-                    onBlur={event => onBlurValidate(event)}
+                    onBlur={(event) => onBlurValidate(event)}
                   ></Text>
                 </label>
                 <br></br>
@@ -192,7 +214,7 @@ const MobileBlocks = ({
                     className={classes.text}
                     field="vinyard"
                     initialValue={data.vinyard}
-                    onBlur={event => onBlurValidate(event)}
+                    onBlur={(event) => onBlurValidate(event)}
                   ></Text>
                 </label>
 
@@ -203,7 +225,7 @@ const MobileBlocks = ({
                     className={classes.text}
                     field="grapes"
                     initialValue={data.grapes}
-                    onBlur={event => onBlurValidate(event)}
+                    onBlur={(event) => onBlurValidate(event)}
                   ></Text>
                 </label>
                 <br></br>
@@ -225,7 +247,7 @@ const MobileBlocks = ({
                     className={classes.text}
                     field="year"
                     initialValue={data.year}
-                    onBlur={event => onBlurValidate(event)}
+                    onBlur={(event) => onBlurValidate(event)}
                   ></Text>
                 </label>
                 <br></br>
@@ -235,7 +257,7 @@ const MobileBlocks = ({
                     className={classes.text}
                     field="place"
                     initialValue={data.place}
-                    onBlur={event => onBlurValidate(event)}
+                    onBlur={(event) => onBlurValidate(event)}
                   ></Text>
                 </label>
                 <br></br>
@@ -245,7 +267,7 @@ const MobileBlocks = ({
                     className={classes.text}
                     field="area"
                     initialValue={data.area}
-                    onBlur={event => onBlurValidate(event)}
+                    onBlur={(event) => onBlurValidate(event)}
                   ></Text>
                 </label>
                 <br></br>
@@ -255,7 +277,7 @@ const MobileBlocks = ({
                     className={classes.text}
                     field="country"
                     initialValue={data.country}
-                    onBlur={event => onBlurValidate(event)}
+                    onBlur={(event) => onBlurValidate(event)}
                   ></Text>
                 </label>
                 <br></br>
@@ -265,7 +287,7 @@ const MobileBlocks = ({
                     className={classes.text}
                     field="appellation"
                     initialValue={data.appellation}
-                    onBlur={event => onBlurValidate(event)}
+                    onBlur={(event) => onBlurValidate(event)}
                   ></Text>
                 </label>
                 <br></br>
@@ -276,7 +298,7 @@ const MobileBlocks = ({
                     field="price"
                     type="number"
                     initialValue={data.price}
-                    onBlur={event => onBlurValidate(event)}
+                    onBlur={(event) => onBlurValidate(event)}
                   ></Text>
                 </label>
                 <br></br>
@@ -285,7 +307,7 @@ const MobileBlocks = ({
                   <Checkbox
                     field="coravin"
                     initialValue={data.coravin}
-                    onChange={event => onBlurValidate(event)}
+                    onChange={(event) => onBlurValidate(event)}
                   ></Checkbox>
                 </label>
                 <br></br>
@@ -294,9 +316,8 @@ const MobileBlocks = ({
                   <Select
                     field="status"
                     initialValue={data.status}
-                    onChange={event => onBlurValidate(event)}
+                    onChange={(event) => onBlurValidate(event)}
                   >
-                    <Option value="">{data.status}</Option>
                     <Option value="none">None</Option>
                     <Option value="added">Added</Option>
                     <Option value="removed">Removed</Option>
@@ -309,21 +330,35 @@ const MobileBlocks = ({
                   <Select
                     field="mise"
                     initialValue={data.mise}
-                    onChange={event => onBlurValidate(event)}
+                    onChange={(event) => onBlurValidate(event)}
                   >
-                    <Option value="">{data.mise}</Option>
-                    <Option value="ap">AP</Option>
-                    <Option value="burg">BURG</Option>
-                    <Option value="dbx">BDX</Option>
-                    <Option value="flute">Flute</Option>
-                    <Option value="dw ">DW</Option>
-                    <Option value="krug">Krug Flute</Option>
+                    <Option value="AP">AP</Option>
+                    <Option value="BURG">Burgundy</Option>
+                    <Option value="BDX">Bordeaux</Option>
+                    <Option value="Flute">Flute</Option>
+                    <Option value="DW">DW</Option>
+                    <Option value="KRUG">Krug Flute</Option>
+                  </Select>
+                </label>
+                <br></br>
+                <label>
+                  <font size="1">Color:</font>
+
+                  <Select
+                    field="color"
+                    initialValue={data.color}
+                    onChange={(event) => onBlurValidate(event)}
+                  >
+                    <Option value="red">Red</Option>
+                    <Option value="white">White</Option>
+                    <Option value="dessert">Dessert</Option>
+                    <Option value="sparkling">Sparkling</Option>
                   </Select>
                 </label>
                 <CardActions disableSpacing>
                   <IconButton
                     className={clsx(classes.expand, {
-                      [classes.expandOpen]: expanded
+                      [classes.expandOpen]: expanded,
                     })}
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
@@ -341,7 +376,7 @@ const MobileBlocks = ({
                         className={classes.text}
                         field="funfact"
                         initialValue={data.funfact}
-                        onBlur={event => onBlurValidate(event)}
+                        onBlur={(event) => onBlurValidate(event)}
                       ></TextArea>
                     </label>
                   </CardContent>
@@ -355,9 +390,12 @@ const MobileBlocks = ({
               A {""}
               {coravinCheck(data.coravin)} {data.year} {data.grapes} by{" "}
               {data.vinyard} from {data.place} {data.area} in {""}
-              {data.country} served in a {data.mise} for ${data.price}
+              {data.country} served in {aOrAn(data.mise)}{" "}
+              {fullGlassName(data.mise)} for ${data.price}
               <br></br>
               Status: {data.status} <br></br>Appellation: {data.appellation}{" "}
+              <br></br>
+              Color: {data.color}
               <br></br>
               {data.grape.map((result, index) => (
                 <li key={index}>
@@ -382,7 +420,7 @@ const MobileBlocks = ({
             <CardActions disableSpacing>
               <IconButton
                 className={clsx(classes.expand, {
-                  [classes.expandOpen]: expanded
+                  [classes.expandOpen]: expanded,
                 })}
                 onClick={handleExpandClick}
                 aria-expanded={expanded}
