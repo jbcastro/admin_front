@@ -10,7 +10,10 @@ import Login from "./Login";
 import HowTo from "./HowTo";
 import firebase from "../firebase";
 require("dotenv").config();
-var API_KEY = process.env.REACT_APP_API;
+// var API_KEY = process.env.REACT_APP_API;
+var API_KEY = "https://admin-back.herokuapp.com/api/";
+//the key would of course be hidden in production but since
+//this is a demo it is here
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +29,7 @@ class App extends Component {
       editCard: false,
       unEditedItem: {},
       disableOtherEdits: false,
-      loggedIn: false
+      loggedIn: false,
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -45,20 +48,20 @@ class App extends Component {
     // Call our fetch function below once the component mounts
     this.callBackendAPI()
 
-      .then(res => {
+      .then((res) => {
         const glassesData = res.express;
 
         const order = {
           removed: 1,
           added: 2,
           none: 3,
-          hidden: 4
+          hidden: 4,
         };
         glassesData.sort((a, b) => order[a.status] - order[b.status]);
         this.setState({ glasses: glassesData });
         this.setState({ unFilteredWines: glassesData });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
   //Fetches data from backend set up at heroku
   callBackendAPI = async () => {
@@ -72,11 +75,11 @@ class App extends Component {
   };
 
   //set state as current item in order to delete or update
-  handleSelect = e => {
+  handleSelect = (e) => {
     let id = e;
     const glasses = this.state.glasses;
 
-    glasses.map(result => {
+    glasses.map((result) => {
       if (result._id === id) {
         this.setState({ curEditItem: result });
       }
@@ -84,15 +87,15 @@ class App extends Component {
   };
 
   //delete item
-  handleDelete = e => {
+  handleDelete = (e) => {
     let id = e._id;
 
-    fetch(`${API_KEY}/delete?_id=${id}`)
-      .then(response => {
+    fetch(`${API_KEY}delete?_id=${id}`)
+      .then((response) => {
         return response.json();
       })
-      .then(results => {
-        const remainder = this.state.glasses.filter(item => {
+      .then((results) => {
+        const remainder = this.state.glasses.filter((item) => {
           return item._id !== id;
         });
         this.setState({ glasses: remainder, e: {} });
@@ -101,7 +104,7 @@ class App extends Component {
   };
 
   //for adding
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     let newItem = this.state.curItem;
     let name = newItem.name;
     newItem.mise = e.mise;
@@ -111,15 +114,15 @@ class App extends Component {
     newItem.grape = e.grape;
     newItem.description = e.description;
 
-    fetch(`${API_KEY}/add?=${name}`, {
+    fetch(`${API_KEY}add?=${name}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newItem)
+      body: JSON.stringify(newItem),
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           return res.json();
         } else {
@@ -127,10 +130,10 @@ class App extends Component {
         }
       })
 
-      .then(json => {
+      .then((json) => {
         let newData;
         if (!newItem._id) {
-          this.setState(state => {
+          this.setState((state) => {
             newItem._id = json._id;
 
             const glasses = [...state.glasses, newItem];
@@ -138,11 +141,11 @@ class App extends Component {
             return {
               glasses,
 
-              newItem: ""
+              newItem: "",
             };
           });
         } else {
-          newData = this.state.glasses.map(item => {
+          newData = this.state.glasses.map((item) => {
             if (item._id === newItem._id) {
               item = newItem;
             }
@@ -152,12 +155,12 @@ class App extends Component {
         }
       })
 
-      .catch(error => {
+      .catch((error) => {
         console.log("this be your error brah" + error);
       });
   };
   //for updating item
-  handleUpdate = e => {
+  handleUpdate = (e) => {
     let newItem = this.state.curEditItem;
     let name = newItem.name;
     newItem.grape = e.grape;
@@ -167,15 +170,15 @@ class App extends Component {
     newItem.funfact = e.funfact;
     newItem.coravin = e.coravin;
 
-    fetch(`${API_KEY}/add?=${name}`, {
+    fetch(`${API_KEY}add?=${name}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newItem)
+      body: JSON.stringify(newItem),
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
           return res.json();
         } else {
@@ -183,10 +186,10 @@ class App extends Component {
         }
       })
 
-      .then(json => {
+      .then((json) => {
         let newData;
         if (!newItem._id) {
-          this.setState(state => {
+          this.setState((state) => {
             newItem._id = json._id;
 
             const glasses = [...state.glasses, newItem];
@@ -194,11 +197,11 @@ class App extends Component {
             return {
               glasses,
 
-              newItem: ""
+              newItem: "",
             };
           });
         } else {
-          newData = this.state.glasses.map(item => {
+          newData = this.state.glasses.map((item) => {
             if (item._id === newItem._id) {
               item = newItem;
             }
@@ -207,25 +210,25 @@ class App extends Component {
           this.setState({ glasses: newData });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("this be your error brah" + error);
       });
   };
-  onChange = event => {
+  onChange = (event) => {
     var newItem = this.state.curItem;
     newItem[event.target.name] = event.target.value;
   };
 
   //changing state of current item being edited
-  onBlur = event => {
+  onBlur = (event) => {
     const name = event.target.name;
     let value = event.target.value;
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       curEditItem: {
         ...prevState.curEditItem,
-        [name]: value
-      }
+        [name]: value,
+      },
     }));
   };
 
@@ -237,21 +240,21 @@ class App extends Component {
   };
 
   editCardChange = () => {
-    this.setState(state => ({ editCard: !this.state.editCard }));
+    this.setState((state) => ({ editCard: !this.state.editCard }));
   };
   setDisableOtherEdits = () => {
-    this.setState(state => ({
-      disableOtherEdits: !this.state.disableOtherEdits
+    this.setState((state) => ({
+      disableOtherEdits: !this.state.disableOtherEdits,
     }));
   };
   setLogIn = (email, password) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(user => {
+      .then((user) => {
         this.setState({ loggedIn: true });
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
   ///render portion
 
