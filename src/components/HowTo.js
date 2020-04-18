@@ -26,7 +26,12 @@ const HowTo = () => {
             close
           </Button>
           <p></p>
-          insert instructions here
+          When you add a wine you can then edit it with the top form until you
+          click "ADD NEW". You can edit wines with the card below. If you change
+          only one thing you have to click on something else (anywhere really)
+          in order for the save button to appear. Also don't refresh the page
+          else you'll have to login again. I advise allowing your browser to
+          save your password.
         </span>
       ) : (
         <span>
