@@ -3,9 +3,9 @@ import React, { Component } from "react";
 export default class Login extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
   };
-  handleLogin = e => {
+  handleLogin = (e) => {
     e.preventDefault();
     this.props.setLogIn(this.state.email, this.state.password);
   };
@@ -16,9 +16,9 @@ export default class Login extends Component {
           <label htmlFor="email">Email:</label>
           <input
             type="email"
-            onChange={e =>
+            onChange={(e) =>
               this.setState({
-                email: e.target.value
+                email: e.target.value,
               })
             }
           />
@@ -27,9 +27,9 @@ export default class Login extends Component {
           <label htmlFor="password">Password:</label>
           <input
             type="password"
-            onChange={e =>
+            onChange={(e) =>
               this.setState({
-                password: e.target.value
+                password: e.target.value,
               })
             }
           />

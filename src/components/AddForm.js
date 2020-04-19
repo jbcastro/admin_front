@@ -83,6 +83,10 @@ const AddForm = (props) => {
             Price:
             <Text field="price" type="number" onBlur={onChange} />
           </label>
+          <label class="nobreak">
+            Picture:
+            <Text field="picture" onBlur={onChange} />
+          </label>
           <p></p>
           <label class="nobreak">
             Mise:

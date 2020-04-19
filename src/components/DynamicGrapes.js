@@ -13,7 +13,13 @@ const DynamicGrapes = ({ onBlur }) => {
               <br></br>
               {i + 1}:
               <Text field={field} id={`grape${i}`} onBlur={onBlur} />
-              <button type="button" onClick={remove}>
+              <button
+                type="button"
+                onClick={() => {
+                  onBlur();
+                  remove();
+                }}
+              >
                 Remove
               </button>
               <br></br>

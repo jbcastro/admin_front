@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Text, ArrayField, BasicText } from "informed";
-const DynamicArraysGrape = props => {
-  const validateLength = touched => {
+const DynamicArraysGrape = (props) => {
+  const validateLength = (touched) => {
     return !touched ? "must" : undefined;
   };
   return (
@@ -9,9 +9,6 @@ const DynamicArraysGrape = props => {
       <ArrayField field="grape" validate={validateLength} notify={["you must"]}>
         {({ add, fields }) => (
           <>
-            <button onClick={add} type="button" tabIndex="-1">
-              Add Grape
-            </button>
             <br></br>
             {fields.map(({ field, key, remove }, i) => (
               <label htmlFor={i} key={key}>
@@ -23,6 +20,9 @@ const DynamicArraysGrape = props => {
                 <br></br>
               </label>
             ))}
+            <button onClick={add} type="button" tabIndex="-1">
+              Add Another Grape
+            </button>
           </>
         )}
       </ArrayField>

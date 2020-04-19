@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Text, ArrayField, BasicText } from "informed";
 const DynamicArraysDesc = () => {
-  const validateLength = touched => {
+  const validateLength = (touched) => {
     return !touched ? "must" : undefined;
   };
 
@@ -10,9 +10,6 @@ const DynamicArraysDesc = () => {
       <ArrayField field="description" validate={validateLength}>
         {({ add, fields }) => (
           <>
-            <button onClick={add} type="button" tabIndex="-1">
-              Add Description
-            </button>
             <br></br>
             {fields.map(({ field, key, remove }, i) => (
               <label htmlFor={i} key={key}>
@@ -21,8 +18,12 @@ const DynamicArraysDesc = () => {
                 <button type="button" onClick={remove} tabIndex="-1">
                   Remove This Description
                 </button>
+                <br></br>
               </label>
             ))}
+            <button onClick={add} type="button" tabIndex="-1">
+              Add Another Description
+            </button>
           </>
         )}
       </ArrayField>

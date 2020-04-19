@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Text, ArrayField } from "informed";
 import { PromiseProvider } from "mongoose";
 const DynamicDescription = ({ onBlur }) => {
@@ -15,7 +15,13 @@ const DynamicDescription = ({ onBlur }) => {
               <br></br>
               {i + 1}:
               <Text field={field} id={`description${i}`} onBlur={onBlur} />
-              <button type="button" onClick={remove}>
+              <button
+                type="button"
+                onClick={() => {
+                  onBlur();
+                  remove();
+                }}
+              >
                 Remove
               </button>
               <br></br>

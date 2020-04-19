@@ -19,11 +19,11 @@ const MobileBlocksData = ({
   props,
   onBlur,
   disableOtherEdits,
-  setDisableOtherEdits
+  setDisableOtherEdits,
 }) => {
   const data = glasses;
 
-  const cells = data.map(data => {
+  const cells = data.map((data) => {
     return (
       <MobileBlocks
         data={data}

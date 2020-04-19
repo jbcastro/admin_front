@@ -1,35 +1,35 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
 
   input: {
-    display: "none"
+    display: "none",
   },
   card: {
     maxWidth: 345,
     display: "inline-block",
     minHeight: 436,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   cardAdded: {
     maxWidth: 345,
     backgroundColor: "#E6E6FA",
     display: "inline-block",
     minHeight: 436,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   cardRemoved: {
     maxWidth: 345,
     backgroundColor: "#FFA07A",
     display: "inline-block",
     minHeight: 436,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   titleStyle: {
-    fontSize: "100px"
+    fontSize: "5px",
   },
 
   cardHidden: {
@@ -37,51 +37,51 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "yellow",
     display: "inline-block",
     minHeight: 436,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   ButtonBase: {
-    color: "blue"
+    color: "blue",
   },
   buttonHidden: {
-    backgroundColor: "yellow"
+    backgroundColor: "yellow",
   },
 
   AvatarButton: {
-    fontSize: "1em"
+    fontSize: "1em",
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
 
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
+    transform: "rotate(180deg)",
   },
   avatarRed: {
-    backgroundColor: red[500]
+    backgroundColor: red[500],
   },
   avatarWhite: {
-    backgroundColor: "black"
+    backgroundColor: "black",
   },
   avatarDessert: {
     backgroundColor: "yellow",
-    color: "black"
+    color: "black",
   },
   avatarCorovan: {
-    backgroundColor: "green"
+    backgroundColor: "green",
   },
   avatarSparkling: {
-    backgroundColor: "blue"
+    backgroundColor: "blue",
   },
   paragraph: {
-    textTransform: "capitalize"
-  }
+    textTransform: "capitalize",
+  },
 }));
 export default useStyles;

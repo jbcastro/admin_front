@@ -13,6 +13,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import DynamicGrapes from "./DynamicGrapes";
 import DynamicDescription from "./DynamicDescription";
 import { Form, Text, TextArea, Checkbox, Select, Option } from "informed";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 const MobileBlocks = ({
   data,
@@ -120,7 +122,7 @@ const MobileBlocks = ({
 
   return (
     <Card className={checkStatus(data.status)} key={data._id} raised>
-      <CardHeader title={data.name} />
+      <CardHeader subheader={data.name} />
 
       <span>
         {disableOtherEdits ? (

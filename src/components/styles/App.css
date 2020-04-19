@@ -59,3 +59,6 @@ label.nobreak {
 .AddForm {
   clear: both;
 }
+.MuiCardHeader-title {
+  font-size: xx-small;
+}

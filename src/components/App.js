@@ -10,7 +10,10 @@ import Login from "./Login";
 import HowTo from "./HowTo";
 import firebase from "../firebase";
 require("dotenv").config();
-var API_KEY = process.env.REACT_APP_API;
+// var API_KEY = process.env.REACT_APP_API;
+var API_KEY = "test";
+//the key would of course be hidden in production but since
+//this is a demo it is here
 
 class App extends Component {
   constructor(props) {
@@ -87,7 +90,7 @@ class App extends Component {
   handleDelete = (e) => {
     let id = e._id;
 
-    fetch(`${API_KEY}/delete?_id=${id}`)
+    fetch(`${API_KEY}delete?_id=${id}`)
       .then((response) => {
         return response.json();
       })
@@ -111,7 +114,7 @@ class App extends Component {
     newItem.grape = e.grape;
     newItem.description = e.description;
 
-    fetch(`${API_KEY}/add?=${name}`, {
+    fetch(`${API_KEY}add?=${name}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -167,7 +170,7 @@ class App extends Component {
     newItem.funfact = e.funfact;
     newItem.coravin = e.coravin;
 
-    fetch(`${API_KEY}/add?=${name}`, {
+    fetch(`${API_KEY}add?=${name}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
